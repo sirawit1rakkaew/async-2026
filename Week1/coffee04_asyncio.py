@@ -3,10 +3,13 @@ import asyncio
 
 # ฟังก์ชันจำลองการทำกาแฟแบบ Asynchronous
 async def make_coffee(customer_name):
-    pass
+    print(f"Start making coffee for {customer_name} at {ctime()}")
+    await asyncio.sleep(3)  # จำลองเวลาที่ใช้ในการทำกาแฟ
 
 async def main():
-    pass
+    customers = ["Alice", "Bob", "Charlie"]
+    tasks = [make_coffee(customer) for customer in customers]
+    await asyncio.gather(*tasks)
 
 # สั่งให้ระบบ Async เริ่มทำงาน
 if __name__ == "__main__":
