@@ -17,9 +17,11 @@ async def delivery_task(package_id: str, duration: float) -> str:
 
 
 async def main():
+    package_id = str(input("กรุณาใส่รหัสพัสดุ: "))
+    duration = float(input("กรุณาใส่เวลาที่ใช้ในการส่งพัสดุ (วินาที): "))
     # 2) สร้าง Task จาก delivery_task และตั้งชื่อ Task ว่า "Express-Courier"
     task = asyncio.create_task(
-        delivery_task(package_id="P001", duration=5.0),
+        delivery_task(package_id=package_id, duration=duration),
         name="Express-Courier",
     )
 
