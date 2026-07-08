@@ -3,7 +3,7 @@ import asyncio
 
 async def fetch_stock_price(server_name: str, delay: float) -> str:
     """จำลองการดึงราคาหุ้นจากเซิร์ฟเวอร์แต่ละสาขา ซึ่งแต่ละสาขาตอบสนองช้า-เร็วไม่เท่ากัน"""
-    print(f"[REQUEST] กำลังดึงราคาจากเซิร์ฟเวอร์ {server_name} (คาดว่าใช้เวลา {delay} วินาที)")
+    #print(f"[REQUEST] กำลังดึงราคาจากเซิร์ฟเวอร์ {server_name} (คาดว่าใช้เวลา {delay} วินาที)")
     await asyncio.sleep(delay)
     return f"[{server_name}] Price: 150 USD"
 
@@ -23,12 +23,12 @@ async def main():
     # แสดงผลลัพธ์ของเซิร์ฟเวอร์ที่ชนะ (เสร็จก่อนเพื่อน)
     for winner in done:
         result = winner.result()
-        print(f"[WINNER] ผลลัพธ์ที่เร็วที่สุด: {result}  (Task: {winner.get_name()})")
+        print(f"Winner Result: {result}  ")#(Task: {winner.get_name()})
 
     # ==== วนลูปเคลียร์ระบบ: ยกเลิก Task ที่ยังค้างอยู่ (pending) ทั้งหมด ====
-    print(f"[CLEANUP] พบ Task ที่ยังทำงานค้างอยู่ {len(pending)} ตัว -> สั่งยกเลิกทั้งหมด")
+    print(f"Cleaning up {len(pending)} pending tasks...")
     for task in pending:
-        print(f"  -> ยกเลิก Task: {task.get_name()}")
+        # print(f"  -> ยกเลิก Task: {task.get_name()}")
         task.cancel()
 
     # รอให้ Task ที่ถูกยกเลิกทำ cleanup จบจริง ๆ กัน warning
@@ -36,8 +36,8 @@ async def main():
     if pending:
         await asyncio.gather(*pending, return_exceptions=True)
 
-    for task in pending:
-        print(f"[CLEANUP] {task.get_name()}.cancelled() = {task.cancelled()}")
+    # for task in pending:
+    #     print(f"[CLEANUP] {task.get_name()}.cancelled() = {task.cancelled()}")
 
 
 if __name__ == "__main__":
