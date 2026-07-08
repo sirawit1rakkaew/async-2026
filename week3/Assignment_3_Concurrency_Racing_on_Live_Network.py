@@ -16,6 +16,7 @@ async def fetch_stock_price(server_name: str) -> str:
         response.raise_for_status()
         data = response.json()
         price = data["price"]
+        print(f"price from {server_name} = {price}")
         return f"[{server_name}] Price: {price} USD"
 
 
@@ -30,7 +31,7 @@ async def main():
 
     # ดีดตัวหลุดจากการรอทันทีเมื่อมีเซิร์ฟเวอร์ตัวแรกตอบกลับสำเร็จ
     done, pending = await asyncio.wait(tasks, return_when=asyncio.FIRST_COMPLETED)
-
+    print(f"done = {done}")
     # แสดงผลลัพธ์ของเซิร์ฟเวอร์ที่ชนะการแข่งขัน
     for winner in done:
         try:
